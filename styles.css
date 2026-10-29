@@ -1,0 +1,176 @@
+/* Faithful rebuild of the Squarespace site (template 7.1, Fluid Engine).
+   Measurements come from the live page. Squarespace's fonts are Adobe Fonts
+   (Orpheus Pro for headings, Interface for text); the free stand-ins below are
+   Cormorant Garamond and Jost. See README to swap in the real fonts. */
+:root {
+  --band: #f4f4f3;
+  --white: #ffffff;
+  --ink: #000000;
+
+  --heading: "orpheus-pro", "Cormorant Garamond", Georgia, serif;
+  --text: "interface", "Jost", -apple-system, "Helvetica Neue", Arial, sans-serif;
+
+  /* Squarespace 7.1 grid: 24 columns, 11px gaps, 4vw gutters, 1500px max. */
+  --max: 1500px;
+  --gap: 11px;
+  --gutter: 4vw;
+  --cols: 24;
+
+  /* Squarespace type scale: size = (value - 1) * unit + 12px, unit = 1.2vw. */
+  --unit: min(1.2vw, 18px);
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--text);
+  font-weight: 300;
+  font-size: calc(.2 * var(--unit) + 12px);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; }
+h1, h2, h3 { font-family: var(--heading); font-weight: 400; margin: 0; }
+h1 { font-size: calc(3 * var(--unit) + 12px); line-height: 1.232; }
+h2 { font-size: calc(1.8 * var(--unit) + 12px); line-height: 1.2992; }
+h3 { font-size: calc(1.2 * var(--unit) + 12px); line-height: 1.3328; }
+p { margin: 0; }
+
+/* Layout */
+.grid {
+  display: grid;
+  column-gap: var(--gap);
+  grid-template-columns:
+    minmax(calc(var(--gutter) - var(--gap)), 1fr)
+    repeat(var(--cols), minmax(0, calc((var(--max) - var(--gap) * (var(--cols) - 1)) / var(--cols))))
+    minmax(calc(var(--gutter) - var(--gap)), 1fr);
+}
+.section--intro, .section--contact { background: var(--band); }
+.section--bio { background: var(--white); }
+
+/* Fills the window height, headline centered; grows if the window is shorter than the text. */
+.section--intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 6vw 0;
+}
+.intro { grid-column: 3 / 23; }
+.highlight {
+  background: linear-gradient(transparent 8%, var(--white) 8%, var(--white) 88%, transparent 88%);
+  padding-left: .13em;
+  margin-left: -.13em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.section--bio { padding: 9.4vw 0 9.2vw; }
+/* Text spans columns 3-24; the photo floats right over the last 8, so the
+   bio wraps beside it and then runs full width underneath. */
+.bio-text { grid-column: 3 / 25; display: flow-root; }
+.bio-text h3 { margin-bottom: 24px; }
+.bio-text p {
+  font-size: calc(.5 * var(--unit) + 12px);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.bio-text p:last-child { margin-bottom: 0; }
+.bio-photo {
+  float: right;
+  width: calc((100% - 21 * var(--gap)) * 8 / 22 + 7 * var(--gap));
+  margin: 0 0 24px calc((100% - 21 * var(--gap)) / 22 + 2 * var(--gap));
+  aspect-ratio: 407 / 631;
+  height: auto;
+  object-fit: cover;
+}
+
+.section--contact { padding: 3.3vw 0 5.9vw; }
+/* Heading lines up with the bio text; form ends in line with the photo. */
+.contact-heading { grid-column: 3 / 12; grid-row: 1; align-self: start; }
+
+/* Form: a raised white card with pale filled fields; a black underline marks the active field. */
+.contact-form {
+  grid-column: 13 / 25;
+  grid-row: 1;
+  background: var(--white);
+  padding: 40px 44px 44px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 18px 40px -20px rgba(0,0,0,.18);
+}
+.field { display: block; margin-bottom: 24px; }
+.field .title {
+  display: block;
+  padding-bottom: 6px;
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  opacity: .7;
+}
+.name-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.contact-form input,
+.contact-form textarea {
+  display: block;
+  width: 100%;
+  height: 50px;
+  margin: 0;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 0;
+  background: var(--band);
+  box-shadow: inset 0 -1px 0 transparent;
+  color: var(--ink);
+  font: inherit;
+  transition: background .2s, box-shadow .2s;
+}
+.contact-form textarea { height: 140px; resize: vertical; }
+.contact-form input:hover, .contact-form textarea:hover { background: #efefed; }
+.contact-form input:focus, .contact-form textarea:focus {
+  outline: 0;
+  background: #efefed;
+  box-shadow: inset 0 -2px 0 var(--ink);
+}
+.contact-form button {
+  appearance: none;
+  width: 100%;
+  margin-top: 8px;
+  border: 0;
+  border-radius: 0;
+  background: var(--ink);
+  color: var(--white);
+  font-family: var(--heading);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 20px;
+  letter-spacing: .01em;
+  line-height: 1.2;
+  padding: 14px 24px 15px;
+  cursor: pointer;
+  transition: background .2s;
+}
+.contact-form button:hover { background: #333; }
+.contact-form button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.contact-form button:disabled { opacity: .5; cursor: default; }
+.form-status:not(:empty) { margin: 20px 0 0; }
+
+/* Squarespace switches to an 8-column stacked layout below 768px. */
+@media (max-width: 767px) {
+  :root {
+    --cols: 8;
+    --gutter: 6vw;
+    --unit: calc(.012 * min(100vh, 900px));
+  }
+  .section--intro { padding: 12vw 0; }
+  .intro { grid-column: 2 / 10; }
+
+  .section--bio { padding: 14vw 0; }
+  .bio-text { grid-column: 2 / 10; }
+  .bio-photo { float: none; width: 100%; margin: 0 0 11vw; }
+
+  .section--contact { padding: 10vw 0 14vw; }
+  .contact-heading { grid-column: 2 / 10; grid-row: 1; margin-bottom: 8vw; }
+  .contact-form { grid-column: 2 / 10; grid-row: 2; padding: 28px 22px 30px; }
+}

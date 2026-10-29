@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rachel Moore Best</title>
+  <meta property="og:site_name" content="Rachel Moore Best">
+  <meta property="og:title" content="Rachel Moore Best">
+  <meta property="og:url" content="https://www.rachelmoorebest.com">
+  <meta property="og:type" content="website">
+  <meta name="twitter:title" content="Rachel Moore Best">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://www.rachelmoorebest.com/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<main>
+  <section class="section section--intro">
+    <div class="grid">
+      <h1 class="intro"><em>Rachel Moore Best</em> is a consultant and <span class="highlight">instructor of negotiation, influence, and conflict management</span> for government agencies, non-profits, and corporate audiences. She is currently a lecturer at MIT in Cambridge, MA.</h1>
+    </div>
+  </section>
+
+  <section class="section section--bio">
+    <div class="grid">
+      <div class="bio-text">
+        <img class="bio-photo" src="assets/rachel.jpg" alt="Rachel Moore Best" width="853" height="1280">
+        <h3>Rachel Moore Best is a lecturer at MIT Sloan and MIT's School of Engineering, where she teaches Power &amp; Negotiation and Negotiation &amp; Influence for Technical Leaders.</h3>
+        <p>In addition to her work on campus, Rachel is a consultant and instructor of negotiation, influence, and conflict management. As an instructor, Rachel is dedicated to translating skills, frameworks, and proven theory into actionable guidance for her clients' current challenges. Her dynamic, interactive approach to education has led her to design and deliver negotiation, influence, and conflict management courses in multiple arenas, including graduate-level courses at MIT, government agencies, and international &amp; domestic corporate audiences. With a background in qualitative research and design, Rachel has developed custom case materials that successfully facilitate critical skill building using client-specific language and scenarios. Her relevant clients include Google, Audax, Marathon Petroleum, and the US Department of Defense.</p>
+        <p>As a consultant, Rachel specializes in mediation of multi-stakeholder negotiation efforts. In this work, Rachel has provided organizations with dynamic support to engage resistant or hard to reach stakeholders, build durable coalitions, and facilitate necessary change to increase business impact and viability. Her expertise has benefited notable clients such as Disney, Boston Children’s Hospital, Nestlé, and NASA Aeronautics. Her work has been published in academic journals and featured in mainstream media, such as the Wall Street Journal.</p>
+        <p>Outside of work, Rachel is a musician and a language learner. These days, she finds herself deeply concerned with learning how to win negotiations in her husband's native language, Portuguese.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--contact" id="contact">
+    <div class="grid">
+      <h2 class="contact-heading">Contact Rachel to learn more about programming for your organization.</h2>
+
+      <!-- Sends through Web3Forms once data-access-key is filled in. While it's
+           empty, Submit opens the visitor's email app addressed to data-mailto. -->
+      <form class="contact-form" id="contact-form" data-mailto="rmb@rachelmoorebest.com"
+            data-endpoint="https://api.web3forms.com/submit" data-access-key="8b0fc623-3e0a-46f5-b825-d4f8d1258b6e" novalidate>
+        <div class="name-row">
+          <label class="field">
+            <span class="title">First name</span>
+            <input type="text" name="fname" autocomplete="given-name" required>
+          </label>
+          <label class="field">
+            <span class="title">Last name</span>
+            <input type="text" name="lname" autocomplete="family-name" required>
+          </label>
+        </div>
+        <label class="field">
+          <span class="title">Email</span>
+          <input type="email" name="email" autocomplete="email" required>
+        </label>
+        <label class="field">
+          <span class="title">Message</span>
+          <textarea name="message" required></textarea>
+        </label>
+        <!-- Spam trap: hidden from people; Web3Forms rejects submissions that tick it. -->
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
+        <button type="submit">Send message</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<script src="contact.js"></script>
+</body>
+</html>
