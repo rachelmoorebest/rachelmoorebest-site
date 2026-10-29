@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>View My Calendar | Rachel Moore Best</title>
+  <meta property="og:site_name" content="Rachel Moore Best">
+  <meta property="og:title" content="View My Calendar | Rachel Moore Best">
+  <link rel="canonical" href="https://www.rachelmoorebest.com/calendar/">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<main>
+  <section class="section section--page-title">
+    <div class="grid">
+      <a class="home-link" href="../">Rachel Moore Best</a>
+      <h1 class="page-title">View my calendar</h1>
+    </div>
+  </section>
+
+  <section class="section section--calendar">
+    <div class="grid">
+      <!-- Public view of rmb@rachelmoorebest.com. Google shares it as free/busy only,
+           so visitors see "Busy" blocks, never event details. -->
+      <iframe class="calendar-embed" id="calendar-embed" title="Rachel Moore Best's calendar (free/busy)"
+              src="https://calendar.google.com/calendar/embed?wkst=1&ctz=America%2FNew_York&showPrint=0&showCalendars=0&mode=WEEK&src=cm1iQHJhY2hlbG1vb3JlYmVzdC5jb20&color=%23039be5"></iframe>
+    </div>
+  </section>
+</main>
+
+<script>
+  // A week grid is too cramped on phones; show the list (agenda) view there instead.
+  if (window.matchMedia('(max-width: 767px)').matches) {
+    var cal = document.getElementById('calendar-embed');
+    cal.src = cal.src.replace('mode=WEEK', 'mode=AGENDA');
+  }
+</script>
+</body>
+</html>
