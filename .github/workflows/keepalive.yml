@@ -1,0 +1,20 @@
+# GitHub pauses scheduled workflows in a public repo after 60 days without
+# activity. Re-enabling the deploy workflow monthly keeps /calendar updating.
+# If it ever lapses anyway, /calendar shows a "please confirm times" warning.
+name: Keep calendar updates running
+
+on:
+  schedule:
+    - cron: "0 12 1 * *"
+  workflow_dispatch:
+
+permissions:
+  actions: write
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh workflow enable deploy.yml --repo "$GITHUB_REPOSITORY"
+        env:
+          GH_TOKEN: ${{ github.token }}

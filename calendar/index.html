@@ -4,13 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>View My Calendar | Rachel Moore Best</title>
+  <meta name="description" content="Rachel Moore Best's weekday availability, for scheduling.">
   <meta property="og:site_name" content="Rachel Moore Best">
   <meta property="og:title" content="View My Calendar | Rachel Moore Best">
   <link rel="canonical" href="https://www.rachelmoorebest.com/calendar/">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
@@ -20,25 +21,39 @@
     <div class="grid">
       <a class="home-link" href="../">Rachel Moore Best</a>
       <h1 class="page-title">View my calendar</h1>
+      <p class="page-lede">Weekday availability, 8&nbsp;AM to 6&nbsp;PM Eastern Time.</p>
     </div>
   </section>
 
   <section class="section section--calendar">
     <div class="grid">
-      <!-- Public view of rmb@rachelmoorebest.com. Google shares it as free/busy only,
-           so visitors see "Busy" blocks, never event details. -->
-      <iframe class="calendar-embed" id="calendar-embed" title="Rachel Moore Best's calendar (free/busy)"
-              src="https://calendar.google.com/calendar/embed?wkst=1&ctz=America%2FNew_York&showPrint=0&showCalendars=0&mode=WEEK&src=cm1iQHJhY2hlbG1vb3JlYmVzdC5jb20&color=%23039be5"></iframe>
+      <!-- Built by calendar.js from busy.json, which GitHub Actions refreshes from
+           Rachel's free/busy Google Calendar every 15 minutes. -->
+      <div class="availability" id="availability">
+        <div class="cal-toolbar">
+          <div class="cal-nav">
+            <button type="button" class="cal-btn" data-step="-1" aria-label="Previous week">&#8249;</button>
+            <button type="button" class="cal-btn" data-step="0">This week</button>
+            <button type="button" class="cal-btn" data-step="1" aria-label="Next week">&#8250;</button>
+            <h2 class="cal-range" aria-live="polite"></h2>
+          </div>
+          <div class="cal-zone" role="group" aria-label="Time zone" hidden>
+            <button type="button" class="cal-zone-btn" data-zone="home" aria-pressed="true">Eastern Time</button>
+            <button type="button" class="cal-zone-btn" data-zone="local" aria-pressed="false">Your time</button>
+          </div>
+        </div>
+        <div class="cal-meta">
+          <span class="cal-legend"><i class="cal-swatch cal-swatch--busy"></i>Busy <i class="cal-swatch cal-swatch--open"></i>Open</span>
+          <span class="cal-detail" aria-live="polite">Hover or tap any block for exact times.</span>
+          <span class="cal-updated"></span>
+        </div>
+        <div class="cal-grid" aria-label="Weekly availability"></div>
+        <noscript><p class="cal-message">This calendar needs JavaScript. Email <a href="mailto:rmb@rachelmoorebest.com">rmb@rachelmoorebest.com</a> for availability.</p></noscript>
+      </div>
     </div>
   </section>
 </main>
 
-<script>
-  // A week grid is too cramped on phones; show the list (agenda) view there instead.
-  if (window.matchMedia('(max-width: 767px)').matches) {
-    var cal = document.getElementById('calendar-embed');
-    cal.src = cal.src.replace('mode=WEEK', 'mode=AGENDA');
-  }
-</script>
+<script src="calendar.js"></script>
 </body>
 </html>
