@@ -77,10 +77,17 @@
     b.style.top = ((s - day.start) / span * 100) + '%';
     b.style.height = ((e - s) / span * 100) + '%';
     var label = dayLabel(day, { weekday: 'short', month: 'short', day: 'numeric' }) +
-      ' · ' + (kind === 'busy' ? 'Busy ' : 'Open ') + timeRange(s, e) + ' ' + zoneName(zone, 'short', s);
+      ' · ' + (kind === 'busy' ? 'Unavailable ' : 'Available ') + timeRange(s, e) + ' ' + zoneName(zone, 'short', s);
     b.setAttribute('aria-label', label);
     b.dataset.detail = label;
-    if (kind === 'busy' && e - s >= 30 * 60) b.appendChild(el('span', null, timeRange(s, e)));
+    if (kind === 'busy' && e - s >= 30 * 60) {
+      b.appendChild(el('span', 'cal-busy-label', 'Unavailable'));
+      if (e - s >= 60 * 60) b.appendChild(el('span', 'cal-busy-time', timeRange(s, e)));
+    }
+    if (kind === 'open') {
+      b.appendChild(el('span', 'cal-open-label', 'Available'));
+      b.appendChild(el('span', 'cal-open-time', timeRange(s, e)));
+    }
     return b;
   }
 

@@ -280,6 +280,14 @@ p { margin: 0; }
 }
 .cal-block--busy:hover, .cal-block--busy:focus-visible { background: var(--ink); outline: 2px solid var(--ink); outline-offset: 1px; }
 .cal-block--busy span { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cal-busy-label { font-weight: 600; letter-spacing: .02em; }
+.cal-busy-time { opacity: .85; }
+.cal-block--open span { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .cal-block--open { display: flex; flex-direction: column; justify-content: flex-start; padding: 4px 7px; overflow: hidden; color: var(--ink); font-size: 12px; line-height: 1.3; }
+  .cal-block--open:hover span { display: block; overflow: hidden; text-overflow: ellipsis; }
+  .cal-open-label { font-weight: 600; white-space: nowrap; }
+}
 .cal-past {
   position: absolute;
   top: 0;
@@ -327,5 +335,7 @@ p { margin: 0; }
   .cal-date { min-width: 30px; height: 30px; font-size: 20px; }
   .cal-weekday { font-size: 10px; letter-spacing: .08em; }
   .cal-block--busy { left: 2px; right: 2px; }
-  .cal-block--busy span { display: none; }
+  .cal-block--busy { padding: 3px 4px; }
+  .cal-busy-label { font-size: 9px; letter-spacing: 0; }
+  .cal-busy-time { display: none; }
 }
