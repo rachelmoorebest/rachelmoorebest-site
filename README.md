@@ -7,7 +7,8 @@ A faithful copy of the live Squarespace site, written as plain HTML/CSS with no 
 - `contact.js`: contact form behavior
 - `assets/`: headshot (original file from Squarespace) and favicon
 - `calendar/`: the /calendar availability page (`index.html`, `calendar.js`)
-- `scripts/build_busy.py`: turns the public free/busy Google Calendar feed into `calendar/busy.json`
+- `personal/`: the /personal availability page (every day, 7 AM–10 PM), sharing `calendar/calendar.js`
+- `scripts/build_busy.py`: turns the public free/busy Google Calendar feed into `calendar/busy.json` and `personal/busy.json`
 - `.github/workflows/deploy.yml`: publishes the site on every push and every 15 minutes, rebuilding the calendar data each time
 - `CNAME`: tells GitHub Pages the domain
 
@@ -17,7 +18,11 @@ To preview /calendar with current data, build it first: `curl -s -o /tmp/feed.ic
 
 ## /calendar
 
-Shows weekday availability (8 AM–6 PM Eastern, 12 weeks ahead) from the free/busy sharing on rmb@rachelmoorebest.com, so clients' assistants can compare calendars and send an invite. Only busy start/end times are published, never event details. Hours and range are set at the top of `scripts/build_busy.py`. If the data is more than 3 hours old, the page warns visitors to confirm times.
+Shows weekday availability (8 AM–6 PM Eastern, 12 weeks ahead) from the free/busy sharing on rmb@rachelmoorebest.com, so clients' assistants can compare calendars and send an invite. Only busy start/end times are published, never event details. Hours and range are set at the top of `scripts/build_busy.py`.
+
+## /personal
+
+Same grid for scheduling personal meetings: Monday–Sunday, 7 AM–10 PM Eastern, from the same free/busy feed. Not linked from the site and marked noindex, so only people given the link find it. Its hours are in `PAGES` in `scripts/build_busy.py`. If the data is more than 3 hours old, the page warns visitors to confirm times.
 
 ## Known differences from Squarespace
 

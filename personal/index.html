@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Personal Calendar | Rachel Moore Best</title>
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Rachel Moore Best's availability, evenings and weekends included.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<main>
+  <section class="section section--page-title">
+    <div class="grid">
+      <a class="home-link" href="../">Rachel Moore Best</a>
+      <h1 class="page-title">Personal calendar</h1>
+      <p class="page-lede">Availability every day, 7&nbsp;AM to 10&nbsp;PM Eastern Time.</p>
+    </div>
+  </section>
+
+  <section class="section section--calendar">
+    <div class="grid">
+      <!-- Same grid as /calendar, but every day and into the evening. Built by
+           ../calendar/calendar.js from busy.json, which GitHub Actions refreshes from
+           Rachel's free/busy Google Calendar every 15 minutes. -->
+      <div class="availability" id="availability">
+        <div class="cal-toolbar">
+          <div class="cal-nav">
+            <button type="button" class="cal-btn" data-step="-1" aria-label="Previous week">&#8249;</button>
+            <button type="button" class="cal-btn" data-step="0">This week</button>
+            <button type="button" class="cal-btn" data-step="1" aria-label="Next week">&#8250;</button>
+            <h2 class="cal-range" aria-live="polite"></h2>
+          </div>
+          <div class="cal-zone" role="group" aria-label="Time zone" hidden>
+            <button type="button" class="cal-zone-btn" data-zone="home" aria-pressed="true">Eastern Time</button>
+            <button type="button" class="cal-zone-btn" data-zone="local" aria-pressed="false">Your time</button>
+          </div>
+        </div>
+        <div class="cal-meta">
+          <span class="cal-legend"><i class="cal-swatch cal-swatch--busy"></i>Busy <i class="cal-swatch cal-swatch--open"></i>Open</span>
+          <span class="cal-detail" aria-live="polite">Hover or tap any block for exact times.</span>
+          <span class="cal-updated"></span>
+        </div>
+        <div class="cal-grid" aria-label="Weekly availability"></div>
+        <noscript><p class="cal-message">This calendar needs JavaScript. Email <a href="mailto:rmb@rachelmoorebest.com">rmb@rachelmoorebest.com</a> for availability.</p></noscript>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="../calendar/calendar.js"></script>
+</body>
+</html>

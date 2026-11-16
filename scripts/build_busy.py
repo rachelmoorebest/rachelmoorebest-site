@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Build calendar/busy.json from Rachel's public free/busy Google Calendar feed.
+"""Build the availability data from Rachel's public free/busy Google Calendar feed.
 
+Writes calendar/busy.json (weekdays, work hours, for /calendar) and
+personal/busy.json (every day, morning to night, for /personal).
 GitHub Actions runs this every 15 minutes before publishing the site (see
-.github/workflows/deploy.yml). It keeps only busy start/end times on weekdays,
-inside the visible hours, in Unix seconds. The feed shares free/busy only, so
+.github/workflows/deploy.yml). It keeps only busy start/end times inside the
+visible hours, in Unix seconds. The feed shares free/busy only, so
 there are no event details to leak.
 
 Local preview: python3 scripts/build_busy.py, or pass a downloaded .ics file
@@ -21,9 +23,13 @@ from zoneinfo import ZoneInfo
 FEED = "https://calendar.google.com/calendar/ical/rmb%40rachelmoorebest.com/public/basic.ics"
 ZONE_NAME = "America/New_York"
 ZONE = ZoneInfo(ZONE_NAME)
-START_HOUR, END_HOUR = 8, 18  # visible window each weekday, Eastern Time
-WEEKS_AHEAD = 12              # weeks shown after the current one
-OUT = Path(__file__).resolve().parent.parent / "calendar" / "busy.json"
+WEEKS_AHEAD = 12  # weeks shown after the current one
+SITE = Path(__file__).resolve().parent.parent
+# (output file, days shown per week starting Monday, visible hours Eastern Time)
+PAGES = [
+    (SITE / "calendar" / "busy.json", 5, (8, 18)),   # /calendar: weekdays, work hours
+    (SITE / "personal" / "busy.json", 7, (7, 22)),   # /personal: nights and weekends too
+]
 
 
 def fetch(url, attempts=3):
@@ -101,14 +107,20 @@ def main():
         # An empty feed would publish a week of fake "open" time. Fail instead.
         sys.exit("Feed had no busy times; keeping the last published data.")
 
+    for out, per_week, hours in PAGES:
+        write_page(out, intervals, per_week, hours)
+
+
+def write_page(out, intervals, per_week, hours):
+    start_hour, end_hour = hours
     today = datetime.now(ZONE).date()
     monday = today - timedelta(days=today.weekday())
     days = []
     for week in range(WEEKS_AHEAD + 1):
-        for weekday in range(5):
+        for weekday in range(per_week):
             d = monday + timedelta(weeks=week, days=weekday)
-            lo = datetime.combine(d, dtime(START_HOUR), ZONE).timestamp()
-            hi = datetime.combine(d, dtime(END_HOUR), ZONE).timestamp()
+            lo = datetime.combine(d, dtime(start_hour), ZONE).timestamp()
+            hi = datetime.combine(d, dtime(end_hour), ZONE).timestamp()
             days.append({
                 "date": d.isoformat(),
                 "start": int(lo),
@@ -116,14 +128,14 @@ def main():
                 "busy": merged_within(intervals, lo, hi),
             })
 
-    OUT.write_text(json.dumps({
+    out.write_text(json.dumps({
         "generated": int(time.time()),
         "zone": ZONE_NAME,
-        "hours": [START_HOUR, END_HOUR],
+        "hours": [start_hour, end_hour],
+        "days_per_week": per_week,
         "days": days,
     }, separators=(",", ":")))
-    print(f"Wrote {OUT.name}: {len(days)} weekdays, {sum(len(d['busy']) for d in days)} busy blocks")
-
+    print(f"Wrote {out.parent.name}/{out.name}: {len(days)} days, {sum(len(d['busy']) for d in days)} busy blocks")
 
 if __name__ == "__main__":
     main()

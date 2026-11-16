@@ -1,7 +1,7 @@
-// Weekday availability grid for /calendar.
-// busy.json lists each weekday's visible window (8 AM–6 PM Eastern) and the busy
-// blocks inside it, as Unix seconds. Columns are always Rachel's Eastern
-// weekdays; the "Your time" switch only relabels times in the visitor's zone.
+// Availability grid for /calendar (weekdays) and /personal (every day).
+// The page's busy.json lists each day's visible window and the busy blocks
+// inside it, as Unix seconds, plus how many days make up a week. Columns are
+// always Rachel's Eastern days; the "Your time" switch only relabels times.
 (function () {
   var HOME_ZONE = 'America/New_York';
   var STALE_AFTER = 3 * 3600;     // seconds before the data counts as out of date
@@ -103,6 +103,7 @@
 
     grid.textContent = '';
     grid.style.setProperty('--rows', hours);
+    grid.style.setProperty('--days', days.length);
 
     grid.appendChild(el('div', 'cal-corner', zoneName(zone, 'short', first.start)));
     days.forEach(function (day) {
@@ -199,9 +200,10 @@
         var now = Date.now() / 1000;
         data = json;
         weeks = [];
-        for (var i = 0; i < json.days.length; i += 5) weeks.push(json.days.slice(i, i + 5));
+        var perWeek = json.days_per_week || 5;
+        for (var i = 0; i < json.days.length; i += perWeek) weeks.push(json.days.slice(i, i + perWeek));
         // Drop weeks that are already over (the data may be a few hours old on Monday).
-        while (weeks.length > 1 && weeks[0][4].end < now) weeks.shift();
+        while (weeks.length > 1 && weeks[0][weeks[0].length - 1].end < now) weeks.shift();
         week = Math.min(week, weeks.length - 1);
         render();
       });
